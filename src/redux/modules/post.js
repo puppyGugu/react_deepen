@@ -7,8 +7,8 @@
 // 초기값
 const initialState = {
     list: [
-        { user: "유저내용 1", time: "시간 1", text: "텍스트 1" },
-        { user: "유저내용 2", time: "시간 2", text: "텍스트 2" }
+        { user: "유저내용 1", time: "시간 1", text: "텍스트 1", imgSrc: "https://velopert.com/wp-content/uploads/2016/03/react.png"},
+        { user: "유저내용 2", time: "시간 2", text: "텍스트 2", imgSrc: "https://velopert.com/wp-content/uploads/2018/04/prettier-950x500.png"}
     ]
 }
 

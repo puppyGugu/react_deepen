@@ -23,15 +23,22 @@ const Nav = (props) => {
 };
 
 const Navbox = styled.div`
+position:relative;
+height:60px;
 background:coral;
 `
 
 const Logo = styled.h1`
+position:absolute;
+top:-10px;
+left:20px;
 cursor:pointer;
 `
 
 const User = styled.div`
-
+position: absolute;
+top:20px;
+right:20px;
 `
 
 export default Nav;

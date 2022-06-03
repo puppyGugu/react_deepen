@@ -10,12 +10,13 @@ const Main = (props) => {
     return (
         <Wrap>
             {post_list.map((list, idx) => {
-                // console.log(list);
+                console.log(list);
                 return (
                     <Post key={idx}>
-                        <div>{list.user}</div>
-                        <div>{list.time}</div>
-                        <div>{list.text}</div>
+                        <p>{list.user}</p>
+                        <p>{list.time}</p>
+                        <p>{list.text}</p>
+                        <Img src={list.imgSrc}/>
                     </Post>
                 )
             })}
@@ -31,13 +32,21 @@ const Main = (props) => {
 };
 
 const Wrap = styled.div`
+max-width:1000px;
+margin:0 auto;
 padding:0 20px;
 `
 
 const Post = styled.div`
 margin:20px 0;
+padding:20px;
 border:1px solid #000;
 background-color:skyblue;.
+`
+
+const Img = styled.img`
+width:100%;
+max-width:600px;
 `
 
 export default Main;
