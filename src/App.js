@@ -1,5 +1,4 @@
 import React from "react";
-import logo from './logo.svg';
 import './App.css';
 
 import {Route} from "react-router-dom";
@@ -13,8 +12,8 @@ function App() {
     <div className="App">
       <Nav />
       <Route path="/" component={Main} exact/>
-      <Route path="/signup" component={Signup} exact/>
-      <Route path="/login" component={Login} exact/>
+      <Route path="/signup" component={Signup}/>
+      <Route path="/login" component={Login}/>
     </div>
   );
 }
