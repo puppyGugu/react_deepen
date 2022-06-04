@@ -1,5 +1,6 @@
 import React from "react";
 // import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './shared/firebase';
 import { collection, addDoc } from "firebase/firestore";
@@ -32,7 +33,8 @@ const Signup = (props) => {
             {/* <input type="text" ref={pwr_ref} placeholder="비밀번호 재입력" /> */}
             <p>닉네임</p>
             <input type="text" ref={nick_ref} placeholder="닉네임" /><br /><br />
-            <button onClick={signupStart}>회원가입 하기</button>
+            {/* <button onClick={signupStart}>회원가입 하기</button> */}
+            <Link onClick={signupStart} to={"./Login"}>회원가입 하기</Link>
         </div>
     );
 };

@@ -2,21 +2,48 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
+import { auth, db } from "./shared/firebase";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+
 const Nav = (props) => {
     const history = useHistory();
+
+    // 로그인 여부 확인(firebase 제공)
+    const [is_login, setIsLogin] = React.useState(false);
+    console.log(auth.currentUser);
+
+    const loginCheck = async (user) => {
+        if (user) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    };
+    React.useEffect(() => {
+        onAuthStateChanged(auth, loginCheck)
+    }, []);
 
     return (
         <Navbox>
             <Logo onClick={() => {
                 history.push('/');
             }}>로고</Logo>
+            
             <User>
                 <button onClick={() => {
                     history.push('./signup');
                 }}>회원가입</button>
-                <button onClick={() => {
-                    history.push('./login');
-                }}>로그인</button>
+                
+                {is_login? (
+                    <button onClick={() => {
+                        signOut(auth);
+                        history.push('/');
+                    }}>로그아웃</button>
+                ): (
+                    <button onClick={() => {
+                        history.push('./login');
+                    }}>로그인</button>
+                )}
             </User>
         </Navbox>
     );
