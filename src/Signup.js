@@ -11,7 +11,8 @@ const Signup = (props) => {
             <input type="text" placeholder="비밀번호"/><br />
             <input type="text" placeholder="비밀번호 재입력"/>
             <p>닉네임</p>
-            <input type="text" placeholder="닉네임"/>
+            <input type="text" placeholder="닉네임"/><br /><br />
+            <button>회원가입 하기</button>
         </div>
     );
 };

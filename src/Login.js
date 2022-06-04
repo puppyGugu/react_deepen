@@ -8,7 +8,8 @@ const Login = (props) => {
             <p>아이디</p>
             <input type="text" placeholder="아이디"/>
             <p>비밀번호</p>
-            <input type="text" placeholder="비밀번호"/><br />
+            <input type="text" placeholder="비밀번호"/><br /><br />
+            <button>로그인 하기</button>
         </div>
     );
 };
