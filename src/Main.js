@@ -10,7 +10,7 @@ const Main = (props) => {
     return (
         <Wrap>
             {post_list.map((list, idx) => {
-                console.log(list);
+                // console.log(list);
                 return (
                     <Post key={idx}>
                         <p>{list.user}</p>
@@ -41,7 +41,7 @@ const Post = styled.div`
 margin:20px 0;
 padding:20px;
 border:1px solid #000;
-background-color:skyblue;.
+background-color:skyblue;
 `
 
 const Img = styled.img`
