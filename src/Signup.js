@@ -1,8 +1,8 @@
 import React from "react";
 // import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './shared/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, addDoc } from "firebase/firestore";
 
 const Signup = (props) => {
@@ -15,12 +15,12 @@ const Signup = (props) => {
         // const user = await createUserWithEmailAndPassword(auth, "lbs7230@naver.com", "0123456789");
         // 가입하기
         const user = await createUserWithEmailAndPassword(auth, id_ref.current.value, pw_ref.current.value);
-        console.log(user);
+        // console.log(user);
 
         // const user_data = await addDoc(collection(db, "users"), { user_id: "1111", name: "Lee2" });
         // firebase에 값 넣기
         const user_data = await addDoc(collection(db, "users"), { user_id: id_ref.current.value, name: pw_ref.current.value });
-        console.log(user_data.id);
+        // console.log(user_data.id);
     }
 
     return (

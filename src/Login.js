@@ -12,17 +12,16 @@ const Login = (props) => {
     const loginFB = async () => {
         // console.log(id_ref.current.value, pw_ref.current.value);
         const user = await signInWithEmailAndPassword(auth, id_ref.current.value, pw_ref.current.value);
-
-        console.log(user);
+        // console.log(user);
 
         // 유저 정보 가져오기
         const user_docs = await getDocs(
             query(collection(db, "users"), where("user_id", "==", user.user.email))
         );
 
-        user_docs.forEach(u => {
-            console.log(u.data());
-        })
+        // user_docs.forEach(u => {
+        //     console.log(u.data());
+        // })
     }
 
     return (

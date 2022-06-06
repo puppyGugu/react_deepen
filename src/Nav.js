@@ -10,7 +10,7 @@ const Nav = (props) => {
 
     // 로그인 여부 확인(firebase 제공)
     const [is_login, setIsLogin] = React.useState(false);
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
 
     const loginCheck = async (user) => {
         if (user) {
