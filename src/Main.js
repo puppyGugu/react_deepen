@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { auth, db } from "./shared/firebase";
+import { auth } from "./shared/firebase";
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Main = (props) => {

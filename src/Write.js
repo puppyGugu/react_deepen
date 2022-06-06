@@ -6,8 +6,10 @@ const Write = (props) => {
     return (
         <Wrap>
             <h1>게시글 작성</h1>
-            <input type="file" accept="image/*" required />
-            
+            <input type="file" accept="image/*" required /><br /><br />
+            <label>게시글 내용</label><br />
+            <textarea cols="50" rows="10" placeholder="게시글 내용"></textarea><br />
+
             <h4>레이아웃 선택</h4>
             <ViewBox>
                 <div>
@@ -39,12 +41,15 @@ const Write = (props) => {
                     <ViewVImg src={basic} />
                 </ViewV>
             </ViewBox>
+
+            <br />
+            <button>게시글 올리기</button>
         </Wrap>
     );
 };
 
 const Wrap = styled.form`
-padding:0 20px;
+padding:0 20px 20px;
 `
 
 const ViewBox = styled.div`

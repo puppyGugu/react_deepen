@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import { auth, db } from "./shared/firebase";
+import { auth } from "./shared/firebase";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Nav = (props) => {
@@ -28,23 +28,23 @@ const Nav = (props) => {
             <Logo onClick={() => {
                 history.push('/');
             }}>로고</Logo>
-            
-            <User>
-                <button onClick={() => {
-                    history.push('./signup');
-                }}>회원가입</button>
-                
-                {is_login? (
+            {is_login? (
+                <User>
                     <button onClick={() => {
                         signOut(auth);
                         history.push('/');
                     }}>로그아웃</button>
-                ): (
+                </User>
+            ): (
+                <User>
+                    <button onClick={() => {
+                        history.push('./signup');
+                    }}>회원가입</button>
                     <button onClick={() => {
                         history.push('./login');
                     }}>로그인</button>
-                )}
-            </User>
+                </User>
+            )}
         </Navbox>
     );
 };

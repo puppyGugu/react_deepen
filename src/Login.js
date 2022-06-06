@@ -19,9 +19,9 @@ const Login = (props) => {
             query(collection(db, "users"), where("user_id", "==", user.user.email))
         );
 
-        // user_docs.forEach(u => {
-        //     console.log(u.data());
-        // })
+        user_docs.forEach(u => {
+            console.log(u.data());
+        })
     }
 
     return (
