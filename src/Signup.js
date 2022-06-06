@@ -34,9 +34,12 @@ const Signup = (props) => {
         const user_data = await addDoc(collection(db, "users"), {
             // user_id: id_ref.current.value,
             user_id: user.user.email,
-            name: name_ref.current.value
+            name: name_ref.current?.value
         });
         // console.log(user_data.id);
+
+        history.push('./');
+        alert('가입을 환영 합니다!');
     }
 
     return (
@@ -48,7 +51,7 @@ const Signup = (props) => {
 
             <p>비밀번호</p>
             <input type="password" ref={pw_ref} placeholder="비밀번호"/><br />
-            {/* <input type="text" ref={pwr_ref} placeholder="비밀번호 재입력" /> */}
+            {/* <input type="password" ref={pwr_ref} placeholder="비밀번호 재입력" /> */}
 
             <p>닉네임</p>
             <input type="text" ref={name_ref} placeholder="닉네임" /><br /><br />
@@ -57,8 +60,7 @@ const Signup = (props) => {
                 signupFB();
                 // history.push('./login');
                 // alert('가입을 환영 합니다!');
-            }
-            }>회원가입 하기</button>
+            }}>회원가입 하기</button>
         </div>
     );
 };
