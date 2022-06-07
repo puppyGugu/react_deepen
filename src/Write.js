@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import basic from "./basic.jpg";
 
@@ -11,16 +12,16 @@ const Write = (props) => {
     const file_link_ref = React.useRef(null);
 
     const uploadFB = async (e) => {
-        console.log(e.target.files);
+        // console.log(e.target.files);
 
         const uploded_file = await uploadBytes(
             ref(storage, `images/${e.target.files[0].name}`),
             e.target.files[0]
         );
-        console.log(uploded_file);
+        // console.log(uploded_file);
 
         const file_url = await getDownloadURL(uploded_file.ref);
-        console.log(file_url);
+        // console.log(file_url);
 
         // ref를 값을 담는 용도로 사용
         file_link_ref.current = { url: file_url };
@@ -33,13 +34,20 @@ const Write = (props) => {
         });
     }
 
+    // 현재 텍스트 값 읽어오기
+    const [text, setText] = React.useState('텍스트를 입력해주세요');
+    const currentTxt = (event) => {
+        // console.log(event.target.value);
+        setText(event.target.value);
+    }
+
     return (
         <Wrap>
             <h1>게시글 작성</h1>
             {/* <input type="file" accept="image/*" required /><br /><br /> */}
             <input type="file" onChange={uploadFB} /><br /><br />
             <label>게시글 내용</label><br />
-            <textarea cols="50" rows="10" placeholder="게시글 내용"></textarea><br />
+            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" onChange={currentTxt}></textarea><br />
 
             <h4>레이아웃 선택</h4>
             <ViewBox>
@@ -48,7 +56,7 @@ const Write = (props) => {
                     <label>좌: 텍스트<br />우: 이미지</label>
                 </div>
                 <View>
-                    <p>텍스트</p>
+                    <p>{text}</p>
                     <ViewImg src={basic} />
                 </View>
             </ViewBox>
@@ -59,7 +67,7 @@ const Write = (props) => {
                 </div>
                 <View>
                     <ViewImg src={basic} />
-                    <p>텍스트</p>
+                    <p>{text}</p>
                 </View>
             </ViewBox>
             <ViewBox>
@@ -68,7 +76,7 @@ const Write = (props) => {
                     <label>상: 텍스트<br />하: 이미지</label>
                 </div>
                 <ViewV>
-                    <p>텍스트</p>
+                    <p>{text}</p>
                     <ViewVImg src={basic} />
                 </ViewV>
             </ViewBox>
@@ -111,6 +119,5 @@ const ViewVImg = styled.img`
 max-width:300px;
 margin:0 auto;
 `
-
 
 export default Write;
