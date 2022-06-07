@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import basic from "./basic.jpg";
 
@@ -34,20 +34,40 @@ const Write = (props) => {
         });
     }
 
-    // 현재 텍스트 값 읽어오기
+    // 현재 텍스트 불러오기
     const [text, setText] = React.useState('텍스트를 입력해주세요');
-    const currentTxt = (event) => {
+    const currentText = (event) => {
         // console.log(event.target.value);
         setText(event.target.value);
     }
+
+    // 현재 이미지 불러오기
+    const [imageSrc, setImageSrc] = useState('https://user-images.githubusercontent.com/75834421/124501682-fb25fd00-ddfc-11eb-93ec-c0330dff399b.jpg');
+    const encodeFileToBase64 = (fileBlob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileBlob);
+        return new Promise((resolve) => {
+        reader.onload = () => {
+            setImageSrc(reader.result);
+            resolve();
+        };
+        });
+    };
 
     return (
         <Wrap>
             <h1>게시글 작성</h1>
             {/* <input type="file" accept="image/*" required /><br /><br /> */}
-            <input type="file" onChange={uploadFB} /><br /><br />
+            {/* <input type="file" onChange={uploadFB} /><br /><br /> */}
+            <input type="file" onChange={(e) => {
+                encodeFileToBase64(e.target.files[0]);
+            }} /><br /><br />
             <label>게시글 내용</label><br />
-            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" onChange={currentTxt}></textarea><br />
+            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" onChange={currentText}></textarea><br />
+            
+            <div className="preview">
+                
+            </div>
 
             <h4>레이아웃 선택</h4>
             <ViewBox>
@@ -57,7 +77,10 @@ const Write = (props) => {
                 </div>
                 <View>
                     <p>{text}</p>
-                    <ViewImg src={basic} />
+                    {/* <ViewImg src={basic} className="imgBox" /> */}
+                    <ViewImg>
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                    </ViewImg>
                 </View>
             </ViewBox>
             <ViewBox>
@@ -66,7 +89,9 @@ const Write = (props) => {
                     <label>좌: 이미지<br />우: 텍스트</label>
                 </div>
                 <View>
-                    <ViewImg src={basic} />
+                     <ViewImg>
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                    </ViewImg>
                     <p>{text}</p>
                 </View>
             </ViewBox>
@@ -77,7 +102,9 @@ const Write = (props) => {
                 </div>
                 <ViewV>
                     <p>{text}</p>
-                    <ViewVImg src={basic} />
+                    <ViewVImg>
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                    </ViewVImg>
                 </ViewV>
             </ViewBox>
 
@@ -105,17 +132,17 @@ justify-content: space-between;
 margin-top:20px;
 `
 
+const ViewImg = styled.div`
+max-width:300px;
+`
+
 const ViewV = styled.div`
 display:flex;
 flex-direction: column;
 margin-top:20px;
 `
 
-const ViewImg = styled.img`
-max-width:300px;
-`
-
-const ViewVImg = styled.img`
+const ViewVImg = styled.div`
 max-width:300px;
 margin:0 auto;
 `
