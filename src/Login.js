@@ -1,10 +1,13 @@
 import React from "react";
 // import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import { auth, db } from "./shared/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDocs, where, query, collection } from "firebase/firestore";
 
 const Login = (props) => {
+    const history = useHistory();
     const id_ref = React.useRef(null);
     const pw_ref = React.useRef(null);
 
@@ -21,6 +24,8 @@ const Login = (props) => {
         user_docs.forEach(u => {
             console.log(u.data());
         })
+
+        history.push('./');
     }
 
     return (
@@ -30,10 +35,7 @@ const Login = (props) => {
             <input type="text" ref={id_ref} placeholder="아이디" />
             <p>비밀번호</p>
             <input type="password" ref={pw_ref} placeholder="비밀번호" /><br /><br />
-            {/* <button onClick={loginFB}>로그인 하기</button> */}
-            <button onClick={() => {
-                loginFB();
-            }}>로그인 하기</button>
+            <button onClick={loginFB}>로그인 하기</button>
         </div>
     );
 };

@@ -38,7 +38,7 @@ const Signup = (props) => {
         });
         // console.log(user_data.id);
 
-        history.push('./');
+        history.push('./login');
         alert('가입을 환영 합니다!');
     }
 
@@ -56,11 +56,7 @@ const Signup = (props) => {
             <p>닉네임</p>
             <input type="text" ref={name_ref} placeholder="닉네임" /><br /><br />
 
-            <button onClick={() => {
-                signupFB();
-                // history.push('./login');
-                // alert('가입을 환영 합니다!');
-            }}>회원가입 하기</button>
+            <button onClick={signupFB}>회원가입 하기</button>
         </div>
     );
 };
