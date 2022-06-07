@@ -1,6 +1,6 @@
 // Actions
 // const LOAD = 'my-app/widgets/LOAD';
-// const CREATE = 'post/CREATE';
+const CREATE = 'post/CREATE';
 // const UPDATE = 'my-app/widgets/UPDATE';
 // const REMOVE = 'my-app/widgets/REMOVE';
 

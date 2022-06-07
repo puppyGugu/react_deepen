@@ -50,13 +50,6 @@ const Main = (props) => {
             ) : (
                 <></>
             )}
-
-            {/* <Post>
-                <p>유저</p>
-                <p>시간</p>
-                <p>텍스트</p>
-                <div>이미지</div>
-            </Post> */}
         </Wrap>
     );
 };

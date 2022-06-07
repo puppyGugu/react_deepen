@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import basic from "./basic.jpg";
 
@@ -9,6 +10,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Write = (props) => {
+    const history = useHistory();
     const file_link_ref = React.useRef(null);
 
     const uploadFB = async (e) => {
@@ -47,28 +49,24 @@ const Write = (props) => {
         const reader = new FileReader();
         reader.readAsDataURL(fileBlob);
         return new Promise((resolve) => {
-        reader.onload = () => {
-            setImageSrc(reader.result);
-            resolve();
-        };
+            reader.onload = () => {
+                setImageSrc(reader.result);
+                resolve();
+            };
         });
     };
 
     return (
         <Wrap>
             <h1>게시글 작성</h1>
-            {/* <input type="file" accept="image/*" required /><br /><br /> */}
+            {/* <input type="file" required /><br /><br /> */}
             {/* <input type="file" onChange={uploadFB} /><br /><br /> */}
-            <input type="file" onChange={(e) => {
+            <input type="file" accept="image/*" onChange={(e) => {
                 encodeFileToBase64(e.target.files[0]);
             }} /><br /><br />
             <label>게시글 내용</label><br />
             <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" onChange={currentText}></textarea><br />
             
-            <div className="preview">
-                
-            </div>
-
             <h4>레이아웃 선택</h4>
             <ViewBox>
                 <div>
@@ -109,7 +107,9 @@ const Write = (props) => {
             </ViewBox>
 
             <br />
-            <button>게시글 올리기</button>
+            <button onClick={() => {
+                history.push('./');
+            }}>게시글 올리기</button>
         </Wrap>
     );
 };
