@@ -4,9 +4,11 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import basic from "./basic.jpg";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createPost } from "./redux/modules/post";
+import { loadPostFB } from "./redux/modules/post";
 import { addPostFB } from "./redux/modules/post";
+import { loadUserFB } from "./redux/modules/user";
 
 import { storage } from "./shared/firebase";
 import { db } from './shared/firebase';
@@ -17,6 +19,31 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Write = (props) => {
+    // firebase 데이터 가져오기
+    const user_list = useSelector((state) => state.user.list);
+    console.log(user_list);
+    React.useEffect(() => {
+        dispatch(loadUserFB());
+    }, []);
+
+    // console.log(user_list);
+    console.log(user_list[0].name);
+
+    // const loginFB = async () => {
+    //     // console.log(id_ref.current.value, pw_ref.current.value);
+    //     const user = await signInWithEmailAndPassword(auth, id_ref.current.value, pw_ref.current.value);
+    //     // console.log(user);
+
+    //     // 유저 정보 가져오기
+    //     const user_docs = await getDocs(
+    //         query(collection(db, "users"), where("user_id", "==", user.user.email))
+    //     );
+
+    //     user_docs.forEach(u => {
+    //         console.log(u.data());
+    //     })
+    // }
+
     // 현재 시간 가져오기
     const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
     // console.log(nowTime);

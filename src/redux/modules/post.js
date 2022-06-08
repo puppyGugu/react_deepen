@@ -1,5 +1,6 @@
-import {db} from "../../shared/firebase";
-import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { db } from "../../shared/firebase";
+// import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 // Actions
 const LOAD = 'post/LOAD';
@@ -20,12 +21,12 @@ const initialState = {
 //     return { type: LOAD };
 // }
 
-export function loadPost(post_list){
-    return {type: LOAD, post_list};
+export function loadPost(post_list) {
+    return { type: LOAD, post_list };
 }
 
-export function createPost(post){
-    return {type: CREATE, post};
+export function createPost(post) {
+    return { type: CREATE, post };
 }
 
 // export function updateWidget(widget) {
@@ -46,9 +47,9 @@ export const loadPostFB = () => {
         let post_list = [];
 
         post_data.forEach((p) => {
-            console.log(p.data());
+            // console.log(p.data());
             // post_list = [...post_list, {...p.data()}];
-            post_list.push({id:p.id, ...p.data()});
+            post_list.push({ id: p.id, ...p.data() });
         });
         // console.log(post_list);
 
@@ -69,8 +70,8 @@ export const addPostFB = (post) => {
         // getDoc을 쓰지 않아도 이미 파라미터 add로 데이터를 들고 왔으므로 생략해도 괜찮다.
         // const _add = await getDoc(docRef);
         // const add_data = {id: _add.id, ..._add.data()};
-        
-        const post_data = {id: docRef.id, ...post};
+
+        const post_data = { id: docRef.id, ...post };
         // console.log(add_data);
 
         // 상수를 쓰지 않으려면 한번에 작성도 가능
@@ -83,7 +84,7 @@ export const addPostFB = (post) => {
 export default function reducer(state = initialState, action = {}) {
     switch (action.type) {
         case "post/LOAD": {
-            return {list: action.post_list}
+            return { list: action.post_list }
         }
 
         case "post/CREATE": {
