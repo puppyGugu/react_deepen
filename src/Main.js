@@ -9,9 +9,9 @@ import { auth } from "./shared/firebase";
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Main = (props) => {
+    const post_list = useSelector((state) => state.post.list);
     const history = useHistory();
     const dispatch = useDispatch();
-    const post_list = useSelector((state) => state.post.list);
     // console.log(post_list);
 
     const [is_login, setIsLogin] = React.useState(false);

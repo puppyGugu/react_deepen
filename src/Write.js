@@ -10,39 +10,20 @@ import { loadPostFB } from "./redux/modules/post";
 import { addPostFB } from "./redux/modules/post";
 import { loadUserFB } from "./redux/modules/user";
 
-import { storage } from "./shared/firebase";
-import { db } from './shared/firebase';
-import { collection, addDoc } from "firebase/firestore";
+import { auth, db, storage } from './shared/firebase';
+import { collection, addDoc, getDocs, where, query } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import moment from "moment";
 import "moment/locale/ko";
 
 const Write = (props) => {
-    // firebase 데이터 가져오기
     const user_list = useSelector((state) => state.user.list);
-    console.log(user_list);
+    // console.log(user_list);
     React.useEffect(() => {
         dispatch(loadUserFB());
     }, []);
 
-    // console.log(user_list);
-    // console.log(user_list[0].name);
-
-    // const loginFB = async () => {
-    //     // console.log(id_ref.current.value, pw_ref.current.value);
-    //     const user = await signInWithEmailAndPassword(auth, id_ref.current.value, pw_ref.current.value);
-    //     // console.log(user);
-
-    //     // 유저 정보 가져오기
-    //     const user_docs = await getDocs(
-    //         query(collection(db, "users"), where("user_id", "==", user.user.email))
-    //     );
-
-    //     user_docs.forEach(u => {
-    //         console.log(u.data());
-    //     })
-    // }
 
     // 현재 시간 가져오기
     const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -51,48 +32,13 @@ const Write = (props) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const file_link_ref = React.useRef(null);
     const refText = React.useRef();
 
-    // firebase에 데이터 넣기
-    const addInput = () => {
-        // dispatch(createPost({
-        //     text: refText.current.value
-        // }));
 
-        dispatch(addPostFB({
-            user: refText.current.value,
-            time: nowTime
-        }));
-    }
 
     // React.useEffect(() => {
     //     dispatch(addPostFB());
     // }, []);
-
-    // firebase에 이미지 넣기
-    const uploadFB = async (e) => {
-        // console.log(e.target.files);
-
-        const uploded_file = await uploadBytes(
-            ref(storage, `images/${e.target.files[0].name}`),
-            e.target.files[0]
-        );
-        // console.log(uploded_file);
-
-        const file_url = await getDownloadURL(uploded_file.ref);
-        // console.log(file_url);
-
-        // ref를 값을 담는 용도로 사용
-        file_link_ref.current = { url: file_url };
-
-        // console.log(file_link_ref);
-        // console.log(file_link_ref.current);
-
-        const user_data = await addDoc(collection(db, "posts"), {
-            image_url: file_link_ref.current?.url
-        });
-    }
 
     // 텍스트 프리뷰 불러오기
     const [text, setText] = React.useState('텍스트를 입력해주세요');
@@ -114,17 +60,77 @@ const Write = (props) => {
         });
     };
 
+    // const pretest  = encodeFileToBase64(e.target.files[0]);
+
+    // firebase에 이미지 넣기
+    const file_link_ref = React.useRef(null);
+
+    const uploadFB = async (e) => {
+        // console.log(e.target.files);
+        // console.dir(e);
+        // 이벤트가 발생한 target=지금은 input(value 값을 가져온다)
+        // console.log(e.target);
+
+        const uploded_file = await uploadBytes(
+            // 이벤트 발생시 필요(onchange를 포함한 모든 이벤트)
+            ref(storage, `images/${e.target.files[0].name}`),
+            e.target.files[0]
+        );
+        // console.log(uploded_file);
+
+        const file_url = await getDownloadURL(uploded_file.ref);
+        // console.log(file_url);
+
+        // ref를 값을 담는 용도로 사용
+        file_link_ref.current = { url: file_url };
+
+        // console.log(file_link_ref);
+        // console.log(file_link_ref.current);
+
+        // const user_data = await addDoc(collection(db, "posts"), {
+        //     image_url: file_link_ref.current?.url
+        // });
+
+        // 닉네임 가져오기
+        
+    }
+
+    // button 클릭 시 firebase에 데이터 넣기
+    const addInput = () => {
+        // dispatch(createPost({
+        //     text: refText.current.value
+        // }));
+
+        // console.log(file_link_ref.current);
+
+        dispatch(addPostFB({
+            user: "",
+            time: nowTime,
+            text: refText.current.value,
+            image_url: file_link_ref.current.url
+        //
+        }));
+    }
+
     return (
         <Wrap>
             <h1>게시글 작성</h1>
-            {/* <input type="file" required /><br /><br /> */}
-            {/* <input type="file" onChange={uploadFB} /><br /><br /> */}
+            {/* <input type="file" accept="image/*" onChange={uploadFB} /><br /><br /> */}
+            {/* <input type="file" accept="image/*" onChange={() => {
+                uploadFB();
+            }} /><br /><br /> */}
+            {/* <input type="file" accept="image/*" ref={fileInput} onChange={selectFile} /><br /><br /> */}
+            {/* <input type="file" accept="image/*" /><br /><br /> */}
             <input type="file" accept="image/*" onChange={(e) => {
                 encodeFileToBase64(e.target.files[0]);
-                // uploadFB();
+                uploadFB(e);
             }} /><br /><br />
+            {/* <input type="file" accept="image/*" onChange={(e) => {
+                pretest();
+                uploadFB();
+            }} /><br /><br /> */}
             <label>게시글 내용</label><br />
-            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} onChange={currentText}></textarea>
+            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} style={{width:"100%", maxWidth:"400px"}} onChange={currentText}></textarea>
 
             <h4>게시글 미리보기<br />/ 레이아웃 선택</h4>
             <ViewBox>
@@ -166,7 +172,6 @@ const Write = (props) => {
                 </ViewV>
             </ViewBox>
 
-            <br />
             <Button onClick={() => {
                 addInput();
                 history.push('./');
@@ -214,7 +219,7 @@ const Button = styled.button`
 width:100%;
 max-width:210px;
 height:40px;
-margin:0 auto;
+margin:40px auto 0;
 border:none;
 border-radius:6px;
 background-color:#000;
