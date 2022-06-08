@@ -45,10 +45,10 @@ const Signup = (props) => {
     return (
         <div>
             <H4>회원가입</H4>
-            <Input type="text" ref={id_ref} placeholder="아이디(email)" />
-            <Input type="password" ref={pw_ref} placeholder="비밀번호(6자리 이상)"/>
+            <Input type="text" required ref={id_ref} placeholder="아이디(email)" />
+            <Input type="password" required ref={pw_ref} placeholder="비밀번호(6자리 이상)"/>
             {/* <input type="password" ref={pwr_ref} placeholder="비밀번호 재입력" /> */}
-            <Input type="text" ref={name_ref} placeholder="닉네임" />
+            <Input type="text" required ref={name_ref} placeholder="닉네임" />
             <Button onClick={signupFB}>회원가입 하기</Button>
         </div>
     );

@@ -31,8 +31,8 @@ const Login = (props) => {
     return (
         <div>
             <H4>로그인</H4>
-            <Input type="text" ref={id_ref} placeholder="아이디(email)" />
-            <Input type="password" ref={pw_ref} placeholder="비밀번호(6자리 이상)" />
+            <Input type="text" required ref={id_ref} placeholder="아이디(email)" />
+            <Input type="password" required ref={pw_ref} placeholder="비밀번호(6자리 이상)" />
             <Button onClick={loginFB}>로그인 하기</Button>
         </div>
     );
