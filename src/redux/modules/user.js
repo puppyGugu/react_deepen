@@ -1,6 +1,6 @@
 import { db } from "../../shared/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Actions
 const LOAD = 'user/LOAD';

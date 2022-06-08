@@ -27,7 +27,7 @@ const Write = (props) => {
     }, []);
 
     // console.log(user_list);
-    console.log(user_list[0].name);
+    // console.log(user_list[0].name);
 
     // const loginFB = async () => {
     //     // console.log(id_ref.current.value, pw_ref.current.value);
@@ -124,13 +124,13 @@ const Write = (props) => {
                 // uploadFB();
             }} /><br /><br />
             <label>게시글 내용</label><br />
-            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} onChange={currentText}></textarea><br />
+            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} onChange={currentText}></textarea>
 
-            <h4>레이아웃 선택</h4>
+            <h4>게시글 미리보기<br />/ 레이아웃 선택</h4>
             <ViewBox>
                 <div>
                     <input type="radio" id="layout1" name="layout" value="1" /><br />
-                    <label>좌: 텍스트<br />우: 이미지</label>
+                    {/* <label>좌: 텍스트<br />우: 이미지</label> */}
                 </div>
                 <View>
                     <p>{text}</p>
@@ -144,7 +144,7 @@ const Write = (props) => {
             <ViewBox>
                 <div>
                     <input type="radio" id="layout1" name="layout" value="1" /><br />
-                    <label>좌: 이미지<br />우: 텍스트</label>
+                    {/* <label>좌: 이미지<br />우: 텍스트</label> */}
                 </div>
                 <View>
                     <ViewImg>
@@ -156,7 +156,7 @@ const Write = (props) => {
             <ViewBox>
                 <div>
                     <input type="radio" id="layout1" name="layout" value="1" /><br />
-                    <label>상: 텍스트<br />하: 이미지</label>
+                    {/* <label>상: 텍스트<br />하: 이미지</label> */}
                 </div>
                 <ViewV>
                     <p>{text}</p>
@@ -167,10 +167,10 @@ const Write = (props) => {
             </ViewBox>
 
             <br />
-            <button onClick={() => {
+            <Button onClick={() => {
                 addInput();
                 history.push('./');
-            }}>게시글 올리기</button>
+            }}>게시글 올리기</Button>
         </Wrap>
     );
 };
@@ -183,8 +183,10 @@ const ViewBox = styled.div`
 max-width:1000px;
 margin:20px auto 0;
 padding:20px;
-border:1px solid #000;
-background-color:yellow;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+box-shadow:5px 5px 5px #ccc;
 `
 
 const View = styled.div`
@@ -206,6 +208,18 @@ margin-top:20px;
 const ViewVImg = styled.div`
 max-width:300px;
 margin:0 auto;
+`
+
+const Button = styled.button`
+width:100%;
+max-width:210px;
+height:40px;
+margin:0 auto;
+border:none;
+border-radius:6px;
+background-color:#000;
+color:#fff;
+cursor:pointer;
 `
 
 export default Write;

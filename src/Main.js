@@ -69,10 +69,14 @@ padding:0 20px;
 `
 
 const Post = styled.div`
+display:grid;
+grid-template-columns: 1fr 1fr;
 margin:20px 0;
 padding:20px;
-border:1px solid #000;
-background-color:skyblue;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+box-shadow:5px 5px 5px #ccc;
 `
 
 const Img = styled.img`

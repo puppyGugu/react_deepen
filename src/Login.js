@@ -1,5 +1,5 @@
 import React from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import { auth, db } from "./shared/firebase";
@@ -30,14 +30,36 @@ const Login = (props) => {
 
     return (
         <div>
-            <h4>로그인</h4>
-            <p>아이디</p>
-            <input type="text" ref={id_ref} placeholder="아이디" />
-            <p>비밀번호</p>
-            <input type="password" ref={pw_ref} placeholder="비밀번호" /><br /><br />
-            <button onClick={loginFB}>로그인 하기</button>
+            <H4>로그인</H4>
+            <Input type="text" ref={id_ref} placeholder="아이디(email)" />
+            <Input type="password" ref={pw_ref} placeholder="비밀번호(6자리 이상)" />
+            <Button onClick={loginFB}>로그인 하기</Button>
         </div>
     );
 };
+
+const H4 = styled.h4`
+font-size:1.4em;
+`
+
+const Input = styled.input`
+display:block;
+width:100%;
+max-width:200px;
+height:30px;
+margin:20px auto;
+`
+
+const Button = styled.button`
+width:100%;
+max-width:210px;
+height:40px;
+margin:20px auto 0;
+border:none;
+border-radius:6px;
+background-color:#000;
+color:#fff;
+cursor:pointer;
+`
 
 export default Login;
