@@ -13,28 +13,30 @@ import { db } from './shared/firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
+import moment from "moment";
+import "moment/locale/ko";
+
 const Write = (props) => {
+    // 현재 시간 가져오기
+    const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    // console.log(nowTime);
+
     const history = useHistory();
     const dispatch = useDispatch();
-    
+
     const file_link_ref = React.useRef(null);
     const refText = React.useRef();
 
     // firebase에 데이터 넣기
     const addInput = () => {
-        dispatch(createPost({
-            text: refText.current.value
-        }));
+        // dispatch(createPost({
+        //     text: refText.current.value
+        // }));
 
         dispatch(addPostFB({
-            user: refText.current.value
+            user: refText.current.value,
+            time: nowTime
         }));
-
-        // dispatch(addPostFB({
-        //     user: refWord.current.value,
-        //     time: refExplain.current.value,
-        //     text: refExample.current.value
-        // }));
     }
 
     // React.useEffect(() => {
@@ -92,6 +94,7 @@ const Write = (props) => {
             {/* <input type="file" onChange={uploadFB} /><br /><br /> */}
             <input type="file" accept="image/*" onChange={(e) => {
                 encodeFileToBase64(e.target.files[0]);
+                // uploadFB();
             }} /><br /><br />
             <label>게시글 내용</label><br />
             <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} onChange={currentText}></textarea><br />
@@ -104,6 +107,7 @@ const Write = (props) => {
                 </div>
                 <View>
                     <p>{text}</p>
+                    {/* <p>{timer}</p> */}
                     {/* <ViewImg src={basic} className="imgBox" /> */}
                     <ViewImg>
                         {imageSrc && <img src={imageSrc} alt="preview-img" style={{ width: "100%" }} />}
