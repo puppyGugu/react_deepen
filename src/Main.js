@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import { loadPostFB } from "./redux/modules/post";
+
 import { auth } from "./shared/firebase";
 import { onAuthStateChanged } from 'firebase/auth';
 
 const Main = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const post_list = useSelector((state) => state.post.list);
     // console.log(post_list);
 
@@ -23,6 +26,11 @@ const Main = (props) => {
         onAuthStateChanged(auth, loginCheck)
     }, []);
 
+    // firebase 데이터 가져오기
+    React.useEffect(() => {
+        dispatch(loadPostFB());
+    }, []);
+
     return (
         <Wrap>
             {post_list.map((list, idx) => {
@@ -32,7 +40,7 @@ const Main = (props) => {
                         <p>{list.user}</p>
                         <p>{list.time}</p>
                         <p>{list.text}</p>
-                        <Img src={list.imgSrc} />
+                        <Img src={list.image_url} />
                     </Post>
                 )
             })}

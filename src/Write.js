@@ -4,6 +4,10 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import basic from "./basic.jpg";
 
+import { useDispatch } from "react-redux";
+import { createPost } from "./redux/modules/post";
+import { addPostFB } from "./redux/modules/post";
+
 import { storage } from "./shared/firebase";
 import { db } from './shared/firebase';
 import { collection, addDoc } from "firebase/firestore";
@@ -11,8 +15,33 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Write = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+    
     const file_link_ref = React.useRef(null);
+    const refText = React.useRef();
 
+    // firebase에 데이터 넣기
+    const addInput = () => {
+        dispatch(createPost({
+            text: refText.current.value
+        }));
+
+        dispatch(addPostFB({
+            user: refText.current.value
+        }));
+
+        // dispatch(addPostFB({
+        //     user: refWord.current.value,
+        //     time: refExplain.current.value,
+        //     text: refExample.current.value
+        // }));
+    }
+
+    // React.useEffect(() => {
+    //     dispatch(addPostFB());
+    // }, []);
+
+    // firebase에 이미지 넣기
     const uploadFB = async (e) => {
         // console.log(e.target.files);
 
@@ -36,14 +65,14 @@ const Write = (props) => {
         });
     }
 
-    // 현재 텍스트 불러오기
+    // 텍스트 프리뷰 불러오기
     const [text, setText] = React.useState('텍스트를 입력해주세요');
     const currentText = (event) => {
         // console.log(event.target.value);
         setText(event.target.value);
     }
 
-    // 현재 이미지 불러오기
+    // 이미지 프리뷰 불러오기
     const [imageSrc, setImageSrc] = useState('https://user-images.githubusercontent.com/75834421/124501682-fb25fd00-ddfc-11eb-93ec-c0330dff399b.jpg');
     const encodeFileToBase64 = (fileBlob) => {
         const reader = new FileReader();
@@ -65,8 +94,8 @@ const Write = (props) => {
                 encodeFileToBase64(e.target.files[0]);
             }} /><br /><br />
             <label>게시글 내용</label><br />
-            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" onChange={currentText}></textarea><br />
-            
+            <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} onChange={currentText}></textarea><br />
+
             <h4>레이아웃 선택</h4>
             <ViewBox>
                 <div>
@@ -77,7 +106,7 @@ const Write = (props) => {
                     <p>{text}</p>
                     {/* <ViewImg src={basic} className="imgBox" /> */}
                     <ViewImg>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{ width: "100%" }} />}
                     </ViewImg>
                 </View>
             </ViewBox>
@@ -87,8 +116,8 @@ const Write = (props) => {
                     <label>좌: 이미지<br />우: 텍스트</label>
                 </div>
                 <View>
-                     <ViewImg>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                    <ViewImg>
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{ width: "100%" }} />}
                     </ViewImg>
                     <p>{text}</p>
                 </View>
@@ -101,13 +130,14 @@ const Write = (props) => {
                 <ViewV>
                     <p>{text}</p>
                     <ViewVImg>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{width:"100%"}}/>}
+                        {imageSrc && <img src={imageSrc} alt="preview-img" style={{ width: "100%" }} />}
                     </ViewVImg>
                 </ViewV>
             </ViewBox>
 
             <br />
             <button onClick={() => {
+                addInput();
                 history.push('./');
             }}>게시글 올리기</button>
         </Wrap>
