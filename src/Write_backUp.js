@@ -63,7 +63,7 @@ const Write = (props) => {
 
     const uploadFB = async (e) => {
         // console.log(e.target.files);
-        // console.dir(e);
+        console.dir(e);
         // 이벤트가 발생한 target=지금은 input(value 값을 가져온다)
         // console.log(e.target);
 
@@ -100,7 +100,7 @@ const Write = (props) => {
         // console.log(file_link_ref.current);
 
         dispatch(addPostFB({
-            user: "유저정보",
+            user: "",
             time: nowTime,
             text: refText.current.value,
             image_url: file_link_ref.current.url

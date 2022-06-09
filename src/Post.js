@@ -16,7 +16,7 @@ const Post = (props) => {
     // console.log(post_list);
     // console.log(params);
     // console.log(post_index);
-
+    
     // console.log(post_list[post_index]);
     return (
         <div>
