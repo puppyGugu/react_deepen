@@ -14,6 +14,7 @@ const Main = (props) => {
     const dispatch = useDispatch();
     // console.log(post_list);
 
+    // firebase 로그인 확인 코드
     const [is_login, setIsLogin] = React.useState(false);
     const loginCheck = async (user) => {
         if (user) {
@@ -35,8 +36,11 @@ const Main = (props) => {
         <Wrap>
             {post_list.map((list, idx) => {
                 // console.log(list);
+                // console.log(idx);
                 return (
-                    <Post key={idx}>
+                    <Post key={idx} onClick={() => {
+                        history.push("/post/"+idx)
+                    }}>
                         <p>{list.user}</p>
                         <p>{list.time}</p>
                         <p>{list.text}</p>

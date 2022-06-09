@@ -115,20 +115,11 @@ const Write = (props) => {
     return (
         <Wrap>
             <h1>게시글 작성</h1>
-            {/* <input type="file" accept="image/*" onChange={uploadFB} /><br /><br /> */}
-            {/* <input type="file" accept="image/*" onChange={() => {
-                uploadFB();
-            }} /><br /><br /> */}
-            {/* <input type="file" accept="image/*" ref={fileInput} onChange={selectFile} /><br /><br /> */}
-            {/* <input type="file" accept="image/*" /><br /><br /> */}
             <input type="file" accept="image/*" onChange={(e) => {
                 encodeFileToBase64(e.target.files[0]);
                 uploadFB(e);
             }} /><br /><br />
-            {/* <input type="file" accept="image/*" onChange={(e) => {
-                pretest();
-                uploadFB();
-            }} /><br /><br /> */}
+
             <label>게시글 내용</label><br />
             <textarea cols="50" rows="10" placeholder="텍스트를 입력해주세요" ref={refText} style={{width:"100%", maxWidth:"400px"}} onChange={currentText}></textarea>
 

@@ -12,7 +12,7 @@ const Login = (props) => {
     const pw_ref = React.useRef(null);
 
     const loginFB = async () => {
-        // console.log(id_ref.current.value, pw_ref.current.value);
+        console.log(id_ref.current.value, pw_ref.current.value);
         const user = await signInWithEmailAndPassword(auth, id_ref.current.value, pw_ref.current.value);
         // console.log(user);
 

@@ -7,6 +7,7 @@ import Nav from "./Nav";
 import Signup from "./Signup";
 import Login from "./Login";
 import Write from "./Write";
+import Post from "./Post";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
         <Route path="/write" component={Write} />
+        <Route path="/post/:index" component={Post} />
     </div>
   );
 }
